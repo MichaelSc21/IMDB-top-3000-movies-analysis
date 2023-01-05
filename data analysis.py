@@ -1,3 +1,4 @@
+# %%
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -31,26 +32,6 @@ movies_df['Genre'] = movies_df['Genre'].apply(lambda x: str(x)[1:])
 movies_df['Gross'] = movies_df['Gross'].apply(clean_gross)
 movies_df.dtypes
 movies_df
-# %%
-fig, ax = plt.subplots(figsize = (14, 6))
-
-duration = movies_df['Duration'] # x axis
-IMDB_score = movies_df['IMDB_score']# y axis
-
-
-mask1 = ~duration.isnull()
-mask2 = ~IMDB_score.isnull()
-
-duration = duration[mask2][mask1]
-IMDB_score = IMDB_score[mask1][mask2]
-print(type(duration[2]))
-a, b = np.polyfit(duration.to_numpy(), IMDB_score.to_numpy(), 1)
-
-
-ax.plot(duration, a*duration + b)
-
-ax.scatter(duration, IMDB_score, marker='o')
-
 
 # %%
 def plot_graph(xval, yval):

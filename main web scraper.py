@@ -35,9 +35,7 @@ def add_to_dictionary(subfield, i, xpath):
     dictionary[subfield].append(var)
 
 def each_page(i):
-    print("""Adding values to dictionary
-    --------------------------------
-    """)
+
     add_to_dictionary('Title',      i, 'h3//a')
     add_to_dictionary('Year',       i, 'h3//span[2]')
     add_to_dictionary('Duration',   i, 'p[1]//span[@class="runtime"]')
@@ -58,10 +56,7 @@ def getting_data_each_page():
 def rotating_pages(page):
     html_content = requests.get(f'https://www.imdb.com/list/ls074451163/?sort=list_order,asc&st_dt=&mode=detail&page={page}')
     tree = html.fromstring(html_content.content)
-    print("""Going on this page
-    -----------------------------------------------------------
-    """)
-    print(tree)
+
     the_list = tree.xpath('//div[@class = "lister-item mode-detail"]')   
     return tree, the_list
 
@@ -78,10 +73,9 @@ if __name__ == '__main__':
         'Gross':        []
     }
 
-    for page in range(1, 3):
+    for page in range(1, 30):
 
         tree, the_list = rotating_pages(page)
-        print('getting the data off the page now')
         getting_data_each_page()
 
 
@@ -89,3 +83,5 @@ if __name__ == '__main__':
 movies_df = pd.DataFrame(data=dictionary)
 movies_df.to_csv('movies_scraped#1')
 
+
+# %%
