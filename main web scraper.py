@@ -3,6 +3,7 @@ import requests
 from lxml import html
 import time
 import pandas as pd
+import numpy as np
 # %% 
 
 def timeit(temp_list):
@@ -85,3 +86,7 @@ movies_df.to_csv('movies_scraped#1')
 
 
 # %%
+time_taken_html = np.array(time_taken_html)
+time_taken_items = np.array(time_taken_items)
+# %%
+each_page_time = time_taken_html+time_taken_items
